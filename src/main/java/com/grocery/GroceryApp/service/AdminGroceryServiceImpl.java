@@ -18,13 +18,11 @@ public class AdminGroceryServiceImpl implements AdminGroceryService{
 	private ItemGroceryRepository itemGroceryRepository;
 	@Override
 	public Item addNewItem(Item item) {
-		
 		return itemGroceryRepository.save(item);
 	}
 
 	@Override
-	public List<Item> viewItems() {
-		
+	public List<Item> viewItems() {	
 		return itemGroceryRepository.findAll();
 	}
 
@@ -39,11 +37,9 @@ public class AdminGroceryServiceImpl implements AdminGroceryService{
 	public Item updateItem(Long itemId, Item item) {
 		Item existingProduct = getItemById(itemId);
 		existingProduct.setName(item.getName());
-        existingProduct.setPrice(item.getPrice());
-        return itemGroceryRepository.save(existingProduct);
+        	existingProduct.setPrice(item.getPrice());
+        	return itemGroceryRepository.save(existingProduct);
 	}
-
-	
 
 	@Override
 	public void manageInventory(Long itemId, InventoryRequest request) {
@@ -59,14 +55,11 @@ public class AdminGroceryServiceImpl implements AdminGroceryService{
         } else {
             throw new IllegalArgumentException("Invalid inventory action: " + request.getAction());
         }
-
 		itemGroceryRepository.save(item);
-		
 	}
 	
 	private Item getItemById(Long itemId) {
 		return itemGroceryRepository.findById(itemId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + itemId));
 	}
-
 }
